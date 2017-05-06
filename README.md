@@ -1,6 +1,8 @@
 # vue-ts
 
-> A Vue.js project
+A template project for Vue.js and Typescript built upon [vue-webpack-boilerplate](https://github.com/vuejs-templates/webpack)
+
+* Typescript support with [awesome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader).
 
 ## Build Setup
 
