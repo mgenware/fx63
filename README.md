@@ -4,6 +4,8 @@ A template project for Vue.js and Typescript built upon [vue-webpack-boilerplate
 
 * Typescript support with [awesome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader).
 * Support for resolving relative paths to project root.
+* TypeScript and JavaScript files inside `node_module` and `src/lib` will be extracted to `vendor.js`.
+* CSS files inside `node_module` and `src/lib` will be extracted to `vendor.css`.
 
 ## Build Setup
 
