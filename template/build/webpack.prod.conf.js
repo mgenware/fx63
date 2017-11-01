@@ -77,18 +77,10 @@ const webpackConfig = merge(baseWebpackConfig, {
       name: 'vendor',
       minChunks: function (module) {
         // any required modules inside node_modules are extracted to vendor
-        return (
-          module.resource &&
-
-          module.resource.indexOf(
-            path.join(__dirname, '../node_modules')
-          ) === 0
-        ) || (
-          module.resource &&
-          module.resource.indexOf(
-            path.join(__dirname, '../src/lib')
-          ) === 0
-        )
+        return module.resource && (
+          module.resource.startsWith(path.join(__dirname, '../node_modules'))
+          || module.resource.startsWith(path.join(__dirname, '../src/app'))
+          || module.resource.startsWith(path.join(__dirname, '../src/lib')));
       }
     }),
     // extract webpack runtime and module manifest to its own file in order to
