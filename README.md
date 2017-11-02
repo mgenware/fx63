@@ -1,59 +1,64 @@
-# vue-webpack-boilerplate
+# fx63
+Another Vue.js TypeScript template optimized for multiple entries and common chunks.
 
-> A full-featured Webpack setup with hot-reload, lint-on-save, unit testing & css extraction.
-
-> This template is Vue 2.0 compatible. For Vue 1.x use this command: `vue init webpack#1.0 my-project`
-
-## Documentation
-
-- [For this template](http://vuejs-templates.github.io/webpack): common questions specific to this template are answered and each part is described in greater detail
-- [For Vue 2.0](http://vuejs.org/guide/): general information about how to work with Vue, not specific to this template
-
-## Usage
-
-This is a project template for [vue-cli](https://github.com/vuejs/vue-cli). **It is recommended to use npm 3+ for a more efficient dependency tree.**
-
-``` bash
-$ npm install -g vue-cli
-$ vue init webpack my-project
-$ cd my-project
-$ npm install
-$ npm run dev
+## Installation
+npm:
+``` sh
+npm install -g vue-cli
+vue init mgenware/fx63 my-project
+cd my-project
+npm install
 ```
 
-The development server will run on port 8080 by default. If that port is already in use on your machine, the next free port will be used.
+yarn
+```sh
+yarn global add vue-cli
+vue init mgenware/fx63 my-project
+cd my-project
+yarn
+```
 
-## What's Included
+## Differences from original vue-webpack-template
 
-- `npm run dev`: first-in-class development experience.
-  - Webpack + `vue-loader` for single file Vue components.
-  - State preserving hot-reload
-  - State preserving compilation error overlay
-  - Lint-on-save with ESLint
-  - Source maps
+* Add a `dev-build` script(`npm run dev-build` or `yarn dev-build`). like `npm build`, but watch all files and build sources in **development** mode.
+* Enable relative paths resolving in webpack. Use `lib/blabla` instead of `../../../lib/blabla`.
+* Optimized for multiple entries and common chunks. See details below.
 
-- `npm run build`: Production ready build.
-  - JavaScript minified with [UglifyJS](https://github.com/mishoo/UglifyJS2).
-  - HTML minified with [html-minifier](https://github.com/kangax/html-minifier).
-  - CSS across all components extracted into a single file and minified with [cssnano](https://github.com/ben-eb/cssnano).
-  - Static assets compiled with version hashes for efficient long-term caching, and an auto-generated production `index.html` with proper URLs to these generated assets.
-  - Use `npm run build --report`to build with bundle size analytics.
+* TypeScript support.
+  * Use `awesome-ts-loader` as webpack loader.
+  * Use `tslint` to lint TypeScript code.
 
-- `npm run unit`: Unit tests run in PhantomJS with [Karma](http://karma-runner.github.io/0.13/index.html) + [Mocha](http://mochajs.org/) + [karma-webpack](https://github.com/webpack/karma-webpack).
-  - Supports ES2015+ in test files.
-  - Supports all webpack loaders.
-  - Easy mock injection.
+### Dist
+* `npm build` files are written to `dist/prod`.
+* `npm dev-build` files are written to `dist/dev`.
 
-- `npm run e2e`: End-to-end tests with [Nightwatch](http://nightwatchjs.org/).
-  - Run tests in multiple browsers in parallel.
-  - Works with one command out of the box:
-    - Selenium and chromedriver dependencies automatically handled.
-    - Automatically spawns the Selenium server.
+### Support for multiple entries and common chunks
+Upon creation, the project structure is like:
+```
+lib1/      // user libraries
+lib2/      // user libraries
+entry1.js  // entry file 1
+entry2.js  // entry file 2
+```
 
-### Fork It And Make Your Own
+The generated project is configured as:
+* Webpack runtime will be written to `manifest.js`.
+* All dependencies inside `node_modules` or `src/lib1` will be written to `vendor` chunk.
+* All dependencies inside `src/lib2` will be written to `another_vendor` chunk.
+* Both entries(`entry1.js` and `entry2.js`) are using deps from `node_modules`, `src/lib1` and `src/lib2`.
 
-You can fork this repo to create your own boilerplate, and use it with `vue-cli`:
+After build, the `dist` will be:
+```
+js/
+  manifest.js       // the webpack runtime
+  vendor.js         // dependencies inside `node_modules` or `src/lib1`
+  another_vendor.js // dependencies inside `src/lib2`
+  entry1.js         // entry1 code
+  entry2.js         // entry2 code
 
-``` bash
-vue init username/repo my-project
+css/
+  vendor.css         // dependencies inside `node_modules` or `src/lib1`
+  another_vendor.css // dependencies inside `src/lib2`
+  entry1.css         // entry1 code
+  entry2.css         // entry2 code
 ```
