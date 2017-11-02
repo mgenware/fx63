@@ -36,17 +36,17 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: utils.assetsPath('css/[name].css'),
       allChunks: true,
     }),
-    // split vendor js into its own file
+    // all deps inside "node_modules" and "src/lib1" will be written to vendor
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: (m) => /\/node_modules\//.test(m.context) 
-        || /\/src\/lib1\//.test(m.context),
+      minChunks: (m) => /\/node_modules\//.test(m.resource) 
+        || /\/src\/lib1\//.test(m.resource)
+        || /\/src\/lib2\//.test(m.resource),
     }),
-    // split into another common chunk
+    // all deps inside "src/lib2" will be written to another_vendor
     new webpack.optimize.CommonsChunkPlugin({
       name: 'another_vendor',
-      minChunks: (m) => /\/node_modules\//.test(m.context) 
-        || /\/src\/lib2\//.test(m.context),
+      minChunks: (m) => /\/src\/lib2\//.test(m.resource),
     }),
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
