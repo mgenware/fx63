@@ -20,8 +20,8 @@ yarn
 
 ## Differences from original vue-webpack-template
 
-* Add a `dev-build` script(`npm run dev-build` or `yarn dev-build`). like `npm build`, but watch all files and build sources in **development** mode.
-* Enable relative paths resolving in webpack. Use `lib/blabla` instead of `../../../lib/blabla`.
+* Add a `dev-build` script(`npm run dev-build` or `yarn dev-build`). like `npm build`, but **watch** all files and build sources in **development** mode.
+* Enable relative paths resolving in webpack. Use `import 'lib/blabla'` instead of `import '../../../lib/blabla'`.
 * Optimized for multiple entries and common chunks. See details below.
 
 * TypeScript support.
