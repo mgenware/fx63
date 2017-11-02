@@ -33,7 +33,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
     // extract css into its own file
     new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].css')
+      filename: utils.assetsPath('css/[name].css'),
+      allChunks: true,
     }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
