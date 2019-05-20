@@ -1,5 +1,7 @@
 # Deprecated
+
 Use [Vue CLI](https://cli.vuejs.org/) instead.
+
 ---
 # fx63
 Another Vue.js TypeScript template optimized for multiple entries and common chunks.
